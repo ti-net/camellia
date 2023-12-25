@@ -148,6 +148,7 @@ public class CommandsTransponder {
 
                 //subscribe状态下，只能使用指定的命令
                 if (channelInfo.isInSubscribe()) {
+                	/* 暂时屏蔽这段逻辑，支持pub-sub的所有方法-陈浩-231224
                     if (redisCommand != RedisCommand.SUBSCRIBE && redisCommand != RedisCommand.SSUBSCRIBE && redisCommand != RedisCommand.PSUBSCRIBE
                             && redisCommand != RedisCommand.UNSUBSCRIBE && redisCommand != RedisCommand.SUNSUBSCRIBE && redisCommand != RedisCommand.PUNSUBSCRIBE
                             && redisCommand != RedisCommand.PING && redisCommand != RedisCommand.QUIT) {
@@ -156,6 +157,7 @@ public class CommandsTransponder {
                         hasCommandsSkip = true;
                         continue;
                     }
+                    */
                 }
 
                 //DB类型的命令，before auth
@@ -292,11 +294,13 @@ public class CommandsTransponder {
                         byte[][] objects = command.getObjects();
                         if (objects.length > 1) {
                             String arg = Utils.bytesToString(objects[1]);
+                            /* 暂时屏蔽这段逻辑，支持config的所有方法-陈浩-231224
                             if (!arg.equalsIgnoreCase(RedisKeyword.GET.name())) {
                                 task.replyCompleted(new ErrorReply("command 'CONFIG' only support GET"));
                                 hasCommandsSkip = true;
                                 continue;
                             }
+                            */
                         }
                     }
 

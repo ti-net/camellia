@@ -245,6 +245,8 @@ public enum RedisCommand {
     CF_LOADCHUNK(CommandSupportType.FULL_SUPPORT, Type.WRITE, CommandType.CF, Blocking.FALSE, CommandKeyType.SIMPLE_SINGLE),
     CF_MEXISTS(CommandSupportType.FULL_SUPPORT, Type.READ, CommandType.CF, Blocking.FALSE, CommandKeyType.SIMPLE_SINGLE),
     CF_SCANDUMP(CommandSupportType.FULL_SUPPORT, Type.READ, CommandType.CF, Blocking.FALSE, CommandKeyType.SIMPLE_SINGLE),
+    // 支持TIME命令
+    TIME(CommandSupportType.FULL_SUPPORT, Type.READ, CommandType.LIST, Blocking.FALSE, CommandKeyType.SIMPLE_SINGLE),
 
 
     /**
@@ -394,7 +396,6 @@ public enum RedisCommand {
     SLOWLOG(CommandSupportType.NOT_SUPPORT, null, null, Blocking.FALSE, null),
     OBJECT(CommandSupportType.NOT_SUPPORT, null, null, Blocking.FALSE, null),
     SENTINEL(CommandSupportType.NOT_SUPPORT, null, null, Blocking.FALSE, null),
-    TIME(CommandSupportType.NOT_SUPPORT, null, null, Blocking.FALSE, null),
     MIGRATE(CommandSupportType.NOT_SUPPORT, null, null, Blocking.FALSE, null),
     WAIT(CommandSupportType.NOT_SUPPORT, null, null, Blocking.FALSE, null),
     READONLY(CommandSupportType.NOT_SUPPORT, null, null, Blocking.FALSE, null),

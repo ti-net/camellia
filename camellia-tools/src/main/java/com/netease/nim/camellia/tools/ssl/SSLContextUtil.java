@@ -14,7 +14,9 @@ import org.bouncycastle.pkcs.PKCS8EncryptedPrivateKeyInfo;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -91,7 +93,23 @@ public class SSLContextUtil {
             KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             kmf.init(ks, pass);
             SSLContext context = SSLContext.getInstance("TLS");
-            context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), new SecureRandom());
+
+            // 创建一个 TrustManager，用于跳过证书认证
+            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+                public void checkClientTrusted(X509Certificate[] chain, String authType) {
+                }
+
+                public void checkServerTrusted(X509Certificate[] chain, String authType) {
+                }
+
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            }};
+
+            context.init(kmf.getKeyManagers(), trustAllCerts, new SecureRandom());
+            // 设置默认 SSLContext
+            SSLContext.setDefault(context);
             return context;
         } catch (Exception e) {
             throw new IllegalArgumentException(e);

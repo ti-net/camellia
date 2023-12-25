@@ -64,7 +64,6 @@ public class GlobalRedisProxyEnv {
 
     private static IUpstreamClientTemplateFactory clientTemplateFactory;
     private static ProxyDiscoveryFactory discoveryFactory;
-    private static boolean clusterModeEnable;
 
     private static QueueFactory queueFactory = new DefaultQueueFactory();
 
@@ -157,10 +156,6 @@ public class GlobalRedisProxyEnv {
 
     public static void setDiscoveryFactory(ProxyDiscoveryFactory discoveryFactory) {
         GlobalRedisProxyEnv.discoveryFactory = discoveryFactory;
-    }
-
-    public static void setClusterModeEnable(boolean clusterModeEnable) {
-        GlobalRedisProxyEnv.clusterModeEnable = clusterModeEnable;
     }
 
     public static synchronized void addBeforeStartCallback(Runnable callback) {
@@ -259,10 +254,6 @@ public class GlobalRedisProxyEnv {
 
     public static boolean isServerTcpQuickAckEnable() {
         return nettyTransportMode == NettyTransportMode.epoll && serverTcpQuickAck;
-    }
-
-    public static boolean isClusterModeEnable() {
-        return clusterModeEnable;
     }
 
     public static boolean isEpollAvailable() {
